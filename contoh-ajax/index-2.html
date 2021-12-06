@@ -9,42 +9,48 @@
 </head>
 <body>
   <h1>Data STAR WARS</h1>
-  <button id="trigger">Ambil Data</button>
-  <div class="container py-5">
-    <table class="table table-striped">
-      <thead>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Tinggi Badan</th>
-        <th>Gender</th>
-        <th>Tahun Lahir</th>
-      </thead>
-      <tbody id="target"></tbody>
-    </table>
-  </div>
-  <script>
+  <button id="trigger">Run</button>
+
+  <!-- <script>
     const xhr = new XMLHttpRequest();
     xhr.onerror = function(){
       console.log('error')
     }
     xhr.onload = function(){
       const data = JSON.parse(xhr.response);
-      data.results.forEach((person, index) => {
-        document.getElementById('target').innerHTML += `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${person.name}</td>
-            <td>${person.height}</td>
-            <td>${person.gender}</td>
-            <td>${person.birth_year}</td>
-          </tr>
-        `
-      })
+      const xhr2 = new XMLHttpRequest();
+      xhr2.onerror = function(){
+        console.log('error')
+      }
+      xhr2.onload = function(){
+        const data2 = JSON.parse(xhr2.response);
+        console.log(data2)
+      }
+      xhr2.open('GET', data.homeworld)
+      xhr2.send()
     }
     
-    xhr.open('GET', 'https://swapi.dev/api/people')
+    xhr.open('GET', 'https://swapi.dev/api/people/1')
     document.getElementById('trigger').addEventListener('click', ()=>{
       xhr.send()
+    })
+  </script> -->
+  <script>
+    fetch('https://swapi.dev/api/people/1')
+    .then(function(res){
+      return res.json()
+    })
+    .then(function(res){
+      return fetch(res.homeworld)
+    })
+    .then(function(res){
+      return res.json()
+    })
+    .then(function(res){
+      console.log(res)
+    })
+    .catch(function(error){
+      console.error(error)
     })
   </script>
 </body>
